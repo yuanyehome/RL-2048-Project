@@ -1,10 +1,8 @@
-import time
 import numpy as np
 from os.path import join
-import pickle
 import random
+import argparse
 
-from World import Board, showstatus
 from Agent import Agent, load_model
 from draw import draw_score, draw_value
 
@@ -60,34 +58,27 @@ def make_100_mean_score(scores):
 
 
 if __name__ == '__main__':
-    random.seed(2021)
-    path = join('models', NAME)
-    agent = Agent(NAME, PATTERNS, MERGE_PATTERNS, MAX_NUM, merge, squeeze)
-    agent.train(EPOCH_SIZE)
-    agents = []
-    names = ['tt_4_3_tuple']
-    for name in names:
-        path = join('models', name)
-        agents.append(load_model(path))
-    
-    scores = [make_100_mean_score([metric[0] for metric in agent.metrics]) for agent in agents]
-    winning_rates = [agent.static['winning_rate'] for agent in agents]
-    draw_score(names, winning_rates, 1000)
-    '''
-    Tuples = agent.Tuples
-    Tuples_value = [Tuple.V.ravel() for Tuple in Tuples]
-    Tuples_abs_value_distribution = [-np.sort(-np.abs(value)) for value in Tuples_value]
-    draw_value(Tuples_abs_value_distribution[0][::100])
-    '''
-    '''
-    game = Board().popup().popup()
-    print(game.__str__())
-    while game.end() == False:
-        next_game, reward, action = agent.play(game)
-        next_game = next_game.popup()
-        print('reward:', reward)
-        print('action:', action)
-        print(next_game.__str__())
-        game = next_game
-    '''
-    
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--train", action="store_true")
+    parser.add_argument("--eval", action="store_true")
+    parser.add_argument("--models", type=str, nargs="+")
+    args = parser.parse_args()
+
+    if args.train:
+        print("Start training.")
+        random.seed(2021)
+        path = join('results', NAME)
+        agent = Agent(NAME, PATTERNS, MERGE_PATTERNS, MAX_NUM, merge, squeeze)
+        agent.train(EPOCH_SIZE)
+
+    if args.eval:
+        print("Start eval. Models:\n\t%s" % str(args.models))
+        agents = []
+        names = args.models
+        for name in names:
+            path = join('results', name)
+            agents.append(load_model(path))
+
+        scores = [make_100_mean_score([metric[0] for metric in agent.metrics]) for agent in agents]
+        winning_rates = [agent.static['winning_rate'] for agent in agents]
+        draw_score(names, winning_rates, 1000, "results")

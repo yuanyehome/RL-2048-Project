@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def draw_score(names, scores, showsize):
+def draw_score(names, scores, showsize, path):
     plt.xlabel('Training games (x {})'.format(showsize))
     #plt.ylabel('score')
     plt.ylabel('winning rate')
@@ -10,15 +10,15 @@ def draw_score(names, scores, showsize):
     for idx, score in enumerate(scores):
         plt.plot(x[:len(score)],score,linestyle=line_styles[idx],label=names[idx])
     plt.legend()
-    plt.savefig("score.png")
+    plt.savefig(path+"/score.png")
     plt.cla()
 
 
-def draw_value(value):
+def draw_value(value, path):
     plt.xlabel('log10(idx/100)')
     plt.ylabel('value')
     x = np.array(range(len(value)))+1
     x = np.log10(x)
     plt.plot(x, value, linewidth = 1)
-    plt.savefig("value.png")
+    plt.savefig(path+"/value.png")
     plt.cla()
