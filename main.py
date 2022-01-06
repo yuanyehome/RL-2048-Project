@@ -67,7 +67,6 @@ if __name__ == '__main__':
     if args.train:
         print("Start training.")
         random.seed(2021)
-        path = join('results', NAME)
         agent = Agent(NAME, PATTERNS, MERGE_PATTERNS, MAX_NUM, merge, squeeze)
         agent.train(EPOCH_SIZE)
 

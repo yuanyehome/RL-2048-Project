@@ -2,9 +2,8 @@ import numpy as np
 import pickle
 import os
 import time
-import random
 from os.path import join
-from World import Board, STOP_REWARD
+from World import Board
 from tqdm import tqdm
 
 MAX_VALUE = 1<<31
@@ -81,7 +80,7 @@ class Agent():
         self.static = {'score':[], 'winning_rate':[]}
         self.max_mean_score = 0
         self.name = name
-        self.filepath = join('models', name)
+        self.filepath = join('results', name)
         self.run_time = 0.0
         self.start_time = 0.0
         if not os.path.exists(self.filepath):
@@ -187,6 +186,7 @@ class Agent():
     def train(self, epoch_size, lr=0.1, showsize=100):
         f = open(join(self.filepath, 'log.txt'),'w')
         f.write('# {}\n'.format(self.name))
+        f.write('Patterns:\n%s' % str(self.patterns))
         f.close()
         start_epoch = len(self.metrics)
         self.start_time = time.time() - self.run_time
