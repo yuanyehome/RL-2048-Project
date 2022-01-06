@@ -139,7 +139,7 @@ class Agent():
             
     def Stattistic(self, epoch, unit, show=True):
         f = open(join(self.filepath, 'log.txt'),'a+')
-        metrics = np.array(self.metrics[epoch-unit:epoch])
+        metrics = np.array(self.metrics[epoch-unit:epoch], dtype=object)
         score_mean = np.mean(metrics[:, 0])
         score_max = np.max(metrics[:, 0])
         
