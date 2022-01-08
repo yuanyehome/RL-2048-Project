@@ -9,7 +9,7 @@ from draw import draw_score, draw_value
 EPOCH_SIZE = 50000
 MAX_NUM = 14 
 ACTION_NUM = 4 # up, down, left, right
-NAME = 'tt_4_2_tuple'
+NAME = '8_tuple'
 squeeze = False
 merge = False
 if squeeze:
@@ -42,11 +42,9 @@ if merge:
 ]'''
 
 PATTERNS = [
-    [0],
-    [0, 1],
-    [1, 2],
-    [4, 5],
-    [5, 6]
+    [0,1,2,3,4,5,6,7],
+    [0,1,2,3,4,5,8,12],
+    [0,1,2,4,5,6,8,9]
 ]
 
 MERGE_PATTERNS = None

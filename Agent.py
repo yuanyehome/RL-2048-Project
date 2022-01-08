@@ -149,7 +149,7 @@ class Agent():
             f.close()
             return score_mean, score_max
         # all end game board
-        metrics = np.array(self.metrics[epoch-10*unit:epoch])
+        metrics = np.array(self.metrics[epoch-10*unit:epoch], dtype=object)
         score_mean = np.mean(metrics[:, 0])
         score_max = np.max(metrics[:, 0])
         end_games = metrics[:, 2]
