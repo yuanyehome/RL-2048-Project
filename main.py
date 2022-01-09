@@ -74,8 +74,7 @@ if __name__ == '__main__':
         agents = []
         names = args.models
         for name in names:
-            path = join('results', name)
-            agents.append(load_model(path))
+            agents.append(load_model(name))
 
         scores = [make_100_mean_score([metric[0] for metric in agent.metrics]) for agent in agents]
         winning_rates = [agent.static['winning_rate'] for agent in agents]

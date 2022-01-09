@@ -10,7 +10,7 @@ def draw_score(names, scores, showsize, path):
     for idx, score in enumerate(scores):
         plt.plot(x[:len(score)],score,linestyle=line_styles[idx],label=names[idx])
     plt.legend()
-    plt.savefig(path+"/score.png")
+    plt.savefig(path+"/score.pdf")
     plt.cla()
 
 
@@ -20,5 +20,5 @@ def draw_value(value, path):
     x = np.array(range(len(value)))+1
     x = np.log10(x)
     plt.plot(x, value, linewidth = 1)
-    plt.savefig(path+"/value.png")
+    plt.savefig(path+"/value.pdf")
     plt.cla()

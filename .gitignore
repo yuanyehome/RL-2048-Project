@@ -2,3 +2,4 @@
 results/
 .vscode/*
 .idea/*
+.ipynb_checkpoints
